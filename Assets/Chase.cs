@@ -8,8 +8,8 @@ public class Chase : MonoBehaviour
     private Collider detector;
     public playerDetection _playerDetection;
     private NavMeshAgent myAgent;
-
     public GameObject target;
+    public StateMachine _stateMachine;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +17,7 @@ public class Chase : MonoBehaviour
         detector = GetComponentInChildren<Collider>();
         _playerDetection.onPlayerDetection += ChaseTarget;
         myAgent = GetComponent<NavMeshAgent>();
+        _playerDetection.onPlayerDetection += _stateMachine.SetChase;
     }
 
     // Update is called once per frame

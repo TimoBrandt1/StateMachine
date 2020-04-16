@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Wander : MonoBehaviour
 {
     [SerializeField] private Transform leftCorner;
     [SerializeField] private Transform rightCorner;
-
+    [SerializeField] private NavMeshAgent myAgent;
+    private Vector3 firstLoction;
+    public void Start()
+    {
+        firstLoction = randomposition();
+    }
     public Vector3 randomposition()
     {
         float randomX;
@@ -31,5 +37,18 @@ public class Wander : MonoBehaviour
         }
 
         return new Vector3(randomX, transform.position.y, randomZ);
+    }
+    public void CheckDestenation()
+    {
+        float dist = Vector3.Distance(transform.position, firstLoction);
+        if (dist < 20)
+        {
+            firstLoction = randomposition();
+            myAgent.SetDestination(firstLoction);
+        }
+        else
+        {
+            myAgent.SetDestination(firstLoction);
+        }
     }
 }
